@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="smsinfosolutions.ind.hibl">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".utilities.HiblApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Hibl">
+        <activity android:name=".claim.ClaimStatusDetailActivity"></activity>
+        <activity android:name=".claim.ClaimStatusActivity" />
+        <activity android:name=".claim.ClaimOptionActivity" />
+        <activity android:name=".claim.ClaimActivity" />
+        <activity android:name=".completed.CompletedFormDetailActivity" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:configChanges="layoutDirection|uiMode|locale" />
+        <activity android:name=".registration.ImageViewerActivity" />
+        <activity android:name=".completed.CompletedFormActivity" />
+        <activity android:name=".send.SendFormActivity" />
+        <activity android:name=".registration.UploadAnimalImageActivity" />
+        <activity android:name=".pending.PendingFormActivity" />
+        <activity android:name=".CreatePasswordActivity" />
+        <activity android:name=".payment.FinalPaymentActivity" />
+        <activity android:name=".payment.PaymentListActivity" />
+        <activity android:name=".registration.AnimalRegistrationFinalActivity" />
+        <activity android:name=".registration.AnimalRegistraionScreen2Activity" />
+        <activity android:name=".LanguageSelectionActivity" />
+        <activity android:name=".registration.NewAnimalRegistrationActivity" />
+        <activity
+            android:name=".DashboardActivity"
+            android:configChanges="layoutDirection|uiMode|locale" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

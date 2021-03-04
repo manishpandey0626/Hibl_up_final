@@ -1,0 +1,72 @@
+<LinearLayout android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/band_text_color"
+    android:weightSum="7"
+    android:scrollbars="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="2"
+        android:background="@color/list_txt_bg"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text=""
+
+        android:id="@+id/proposal_no"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="2"
+        android:background="@color/list_txt_bg"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text=""
+
+        android:id="@+id/amount"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="2"
+        android:background="@color/list_txt_bg"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text=""
+
+        android:id="@+id/balance"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/list_txt_bg"
+        android:gravity="center_horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+    <CheckBox
+        android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/checked"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

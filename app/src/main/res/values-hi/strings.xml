@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name">Hibl</string>
+    <string name="mobile_no">मोबाइल नंबर </string>
+    <string name="otp">ओ टी पी </string>
+    <string name="login">लॉग इन</string>
+    <string name="selectedlanguage">हिंदी</string>
+    <string name="language">नमस्ते दुनिया</string>
+    <string name="logo_text">उत्तर प्रदेश</string>
+
+
+    <string name="conti">जारि रखे</string>
+
+    <string name="greeting">नमस्कार,</string>
+    <string name="setting">सेटिंग</string>
+    <string name="logout">लॉग आउट</string>
+    <string name="completed_form">पूर्ण प्रस्ताव</string>
+    <string name="pending_form">अपूर्ण प्रस्ताव</string>
+    <string name="payment">भुगतान</string>
+    <string name="send_form">प्रस्ताव भेजे</string>
+    <string name="new_registration"> नया प्रस्ताव भरे</string>
+
+
+    <string name="register_new_animal"> नया प्रस्ताव भरे</string>
+    <string name="city">शहर</string>
+    <string name="hospital">अस्पताल</string>
+    <string name="proposal_form_no">प्रस्ताव पत्र संख्या</string>
+    <string name="aadhar_no"> आधार नं०</string>
+    <string name="no_of_animal">पशुओ की संख्या</string>
+    <string name="caste"> जाति</string>
+    <string name="area">क्षेत्र</string>
+    <string name="duration">बीमा अवधि</string>
+    <string name="ptd">पी० टी० डी०</string>
+    <string name="save">सुरक्षित करे</string>
+    <string name="save_next">सुरक्षित करे एवं आगे बढे</string>
+
+    <string name="animals_detail">पशुओ का विवरण</string>
+    <string name="tag_no">टैग नं०</string>
+    <string name="animal_type">पशु का प्रकार</string>
+    <string name="sum_insured">बीमित राशि</string>
+    <string name="upload">अपलोड</string>
+
+
+    <string name="premium_details">प्रीमियम का विवरण</string>
+    <string name="government_share">सरकार का अंशदान</string>
+    <string name="beneficiary_share">पशुपालक का अंशदान</string>
+    <string name="total_premium">कुल प्रीमियम</string>
+    <string name="confirm">पुष्टि करे</string>
+
+
+    <string name="payment_details">भुगतान का विवरण</string>
+    <string name="amount">राशि</string>
+    <string name="balance">बकाया</string>
+    <string name="select">चुने</string>
+    <string name="make_payment">भुगतान करे</string>
+    <string name="payment_type">भुगतान प्रकार</string>
+    <string name="bank_amount">बैंक राशि</string>
+    <string name="date">दिंनाक</string>
+    <string name="confirm_payment">भुगतान की पुष्टि करे</string>
+
+    <string name="create_password">पासवर्ड बनाये</string>
+    <string name="password">पासवर्ड</string>
+    <string name="cpassword">कन्फर्म पासवर्ड</string>
+
+    <string name="animal_images">पशु चित्र</string>
+    <string name="add_photo">चित्र जोड़े</string>
+    <string name="add_new_animal" >नए पशु को जोड़े</string>
+
+    <string name="choose_language">भाषा चुने</string>
+    <string name="current_language">हिंदी</string>
+
+    <string name="beneficiary_name">पशुपालक नाम</string>
+    <string name="policy_no">बीमा संख्या</string>
+    <string name="certificate_no">प्रमाण पत्र संख्या</string>
+    <string name="insurance_from">बीमा तिथि</string>
+    <string name="inward_dt">प्राप्ति तिथि</string>
+    <string name="use_dt">प्रस्ताव तिथि</string>
+    <string name="welcome" >सुस्वागतं</string>
+    <string name="name">नाम</string>
+    <string name="email">ईमेल</string>
+    <string name="designation">पद</string>
+    <string name="bank">बैंक</string>
+    <string name="branch">शाखा</string>
+    <string name="account_no">खाता संख्या</string>
+    <string name="ifsc">आई अफ़ एस सी</string>
+    <string name="age">आयु</string>
+    <string name="login_msg">जारी रखने के लिए लॉगिन करें</string>
+    <string name="upload_animal">पशु चित्र जोड़े</string>
+    <string name="upload_bank">बैंक खाते का विवरण भेजे</string>
+    <string name="claim_intimation">दावा सूचना</string>
+    <string name="claim_for">दावा प्रकार</string>
+    <string name="claim_status">दावा स्थिति</string>
+    <string name="claim_option">विकल्प चुने</string>
+    <string name="intimation_date">दावा दिंनाक</string>
+    <string name="customer_name">ग्राहक का नाम</string>
+    <string name="investigator_name">अन्वेषक का नाम </string>
+    <string name="investigator_mobile">अन्वेषक का मोबाइल न.</string>
+    <string name="status_date">स्थिति दिंनाक</string>
+    <string name="claims">दावे</string>
+
+</resources>

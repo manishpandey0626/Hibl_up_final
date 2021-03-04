@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#2e7d32</color>
+    <color name="primaryLightColor">#60ad5e</color>
+    <color name="primaryDarkColor">#005005</color>
+    <color name="secondaryColor">#ef6c00</color>
+    <color name="secondaryLightColor">#ff9d3f</color>
+    <color name="secondaryDarkColor">#b53d00</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="list_bg">#f5f4f4</color>
+    <color name="list_txt_bg">#d7d9db</color>
+    <color name="band_text_color">#999999</color>
+
+    <!-- -link color - -->
+    <color name="blue">#0000EE</color>
+    <color name="offwhite">#f5f5f5</color>
+
+    <color name="border_color">#6B000000</color>
+
+
+</resources>

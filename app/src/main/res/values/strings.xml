@@ -1,0 +1,103 @@
+<resources>
+
+    <string name="app_name">HIBL UP</string>
+    <string name="mobile_no">Mobile No</string>
+    <string name="otp">OTP</string>
+    <string name="login">Login</string>
+
+
+    <string name="selectedlanguage">English</string>
+    <string name="language">Hello World</string>
+    <string name="logo_text">Uttar Pradesh</string>
+
+
+    <string name="conti">Continue</string>
+
+    <string name="greeting">Hi,</string>
+    <string name="setting">Setting</string>
+    <string name="logout">Logout</string>
+    <string name="completed_form">Completed Form</string>
+    <string name="pending_form">Pending Form</string>
+    <string name="payment">Payment</string>
+    <string name="send_form">Send Form</string>
+    <string name="new_registration">New Animal Registration</string>
+
+
+    <string name="register_new_animal">Register New Animal</string>
+    <string name="city">City</string>
+    <string name="hospital">Hospital</string>
+    <string name="proposal_form_no">Proposal No.</string>
+    <string name="aadhar_no">Aadhar No.</string>
+    <string name="no_of_animal">No. Of Animal</string>
+    <string name="caste">Caste</string>
+    <string name="area">Area</string>
+    <string name="duration">Duration</string>
+    <string name="ptd">PTD</string>
+    <string name="save">Save</string>
+    <string name="save_next">Save &amp; Next</string>
+
+    <string name="animals_detail">Animal Details</string>
+    <string name="tag_no">Tag No.</string>
+    <string name="animal_type">Animal Type</string>
+    <string name="sum_insured">Sum Insured</string>
+    <string name="upload">Upload</string>
+
+
+    <string name="premium_details">Premium Details</string>
+    <string name="government_share">Government Share</string>
+    <string name="beneficiary_share">Beneficiary Share</string>
+    <string name="total_premium">Total Premium</string>
+    <string name="confirm">Confirm</string>
+
+
+    <string name="payment_details">Payment Details</string>
+    <string name="amount">Amount</string>
+    <string name="balance">Balance</string>
+    <string name="select">Select</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="payment_type">Payment Type</string>
+    <string name="bank_amount">Bank Amount</string>
+    <string name="date">Date</string>
+    <string name="confirm_payment">Confirm Payment</string>
+
+    <string name="create_password">Create Password</string>
+    <string name="password">Password</string>
+    <string name="cpassword">Confirm Password</string>
+
+    <string name="animal_images">Animal Images</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="add_new_animal">Add New Animal</string>
+
+    <string name="choose_language">Choose Language</string>
+    <string name="current_language">English</string>
+
+    <string name="beneficiary_name">Beneficiary Name</string>
+    <string name="policy_no">Policy No.</string>
+    <string name="certificate_no">Certificate No.</string>
+    <string name="insurance_from">Insurance From</string>
+    <string name="inward_dt">Receipt Date</string>
+    <string name="use_dt">Proposal Date</string>
+    <string name="welcome">Welcome !</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="designation">Designation</string>
+    <string name="bank">Bank</string>
+    <string name="branch">Branch</string>
+    <string name="account_no">Account No.</string>
+    <string name="ifsc">IFSC</string>
+    <string name="age">Age</string>
+    <string name="login_msg">Login to continue</string>
+    <string name="upload_animal">Upload Animal Photo</string>
+    <string name="upload_bank">Upload Bank Detail</string>
+    <string name="claim_intimation">Claim Intimation</string>
+    <string name="claim_for">Claim For</string>
+    <string name="claim_status">Claim Status</string>
+    <string name="claim_option">Select Option</string>
+    <string name="intimation_date">Intimation Date</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="investigator_name">Investigator Name</string>
+    <string name="investigator_mobile">Investigator Mobile no.</string>
+    <string name="status_date">Status Date</string>
+    <string name="claims">Claims</string>
+
+</resources>

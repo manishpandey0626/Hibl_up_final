@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="8dp"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardveiw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="2dp"
+        app:cardCornerRadius="10dp"
+        card_view:cardPreventCornerOverlap="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:visibility="visible"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/animal_photo"
+                android:contentDescription="Movie Image" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete"
+               android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                app:icon="@drawable/close"
+                app:iconSize="10dp"
+                app:iconGravity="textStart"
+                android:padding="0dp"
+                app:iconPadding="0dp"
+                android:insetLeft="0dp"
+                android:insetTop="0dp"
+                android:insetRight="0dp"
+                android:insetBottom="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+                />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+
+        android:layout_below="@+id/cardveiw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cat_title"
+        android:layout_marginLeft="8dp"
+        android:textSize="12sp"
+        android:text=""
+        />
+</RelativeLayout>
