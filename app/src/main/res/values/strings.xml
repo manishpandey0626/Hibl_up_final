@@ -58,6 +58,7 @@
     <string name="payment_type">Payment Type</string>
     <string name="bank_amount">Bank Amount</string>
     <string name="date">Date</string>
+    <string name="death_date">Death Date</string>
     <string name="confirm_payment">Confirm Payment</string>
 
     <string name="create_password">Create Password</string>
@@ -99,5 +100,9 @@
     <string name="investigator_mobile">Investigator Mobile no.</string>
     <string name="status_date">Status Date</string>
     <string name="claims">Claims</string>
+    <string name="no_of_animal_insured">No. of animals insured(Big)</string>
+    <string name="no_of_animal_insured_small">No. of animals insured(small)</string>
+    <string name="paid_amt">Paid Amount</string>
+    <string name="paid_dt">Last Paid Date</string>
 
 </resources>

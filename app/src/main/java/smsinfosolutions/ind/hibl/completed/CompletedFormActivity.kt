@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.healthymantra.piousvision.utilities.CompletedFormDetail
-import org.healthymantra.piousvision.utilities.CompletedFormList
+import smsinfosolutions.ind.hibl.utilities.CompletedFormDetail
+import smsinfosolutions.ind.hibl.utilities.CompletedFormList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +40,17 @@ class CompletedFormActivity : AppCompatActivity() {
 
 
 
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        })
 
 
 
@@ -71,7 +82,7 @@ class CompletedFormActivity : AppCompatActivity() {
         })
     }
 
-    fun itemClicked(data:CompletedFormDetail)
+    fun itemClicked(data: CompletedFormDetail)
     {
         startActivity(Intent(this@CompletedFormActivity,CompletedFormDetailActivity::class.java).apply {
             putExtra("proposal_no",data.proposal_no)

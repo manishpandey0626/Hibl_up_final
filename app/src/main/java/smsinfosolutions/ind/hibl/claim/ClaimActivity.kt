@@ -4,8 +4,10 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -15,9 +17,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import okhttp3.ResponseBody
-import org.healthymantra.piousvision.utilities.AnimalImages
-import org.healthymantra.piousvision.utilities.LovData
-import org.healthymantra.piousvision.utilities.LovDataList
+import smsinfosolutions.ind.hibl.utilities.AnimalImages
+import smsinfosolutions.ind.hibl.utilities.LovData
+import smsinfosolutions.ind.hibl.utilities.LovDataList
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -212,19 +214,13 @@ class ClaimActivity : AppCompatActivity() {
 
 
     private fun showFileChooser(mime_type: Array<String>, request: Int) {
-        if (storage_permission) {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            // intent.setType("image/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-
-            //  intent.setAction(Intent.ACTION_GET_CONTENT);
-
-            //intent.setType(file_type);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
-            intent.type = "*/*"
-            //  startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            startActivityForResult(intent, request)
+       if (storage_permission) {
+//            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//            intent.addCategory(Intent.CATEGORY_OPENABLE)
+//            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
+//            intent.type = "*/*"
+//            startActivityForResult(intent, request)
+           startActivityForResult(Utils.getPickImageChooserIntent(this), request)
         } else {
 
         }
@@ -293,35 +289,67 @@ class ClaimActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            uri = data.data
-            val file_name = Utils.getFileName(this, uri)
+        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null ) {
+            var bitmap: Bitmap?
+            var isCamera = true
+            if (data.data != null) {
+                val action = data.action
+                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
+            }
 
 
-            // bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            if (isCamera) {
+                bitmap = data.extras?.get("data") as Bitmap?
+            } else {
+                uri = data.data
+                bitmap = Utils.decodeUri(this, uri, 200)
+            }
 
-            // bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            val bitmap = Utils.decodeUri(this, uri, 200)
             bitmap?.let {
                 binding.proposalNoUpload.setImageBitmap(bitmap)
                 proposal_img = Utils.Bitmap_to_base64(bitmap)
 
             }
-        } else if (requestCode == PICK_BANK_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
+        } else if (requestCode == PICK_BANK_REQUEST && resultCode == RESULT_OK && data != null ) {
+
+            var bitmap: Bitmap?
+            var isCamera = true
+            if (data.data != null) {
+                val action = data.action
+                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
+            }
 
 
-            val uri = data.data
-            val bitmap = Utils.decodeUri(this, uri, 200)
+            if (isCamera) {
+                bitmap = data.extras?.get("data") as Bitmap?
+            } else {
+                uri = data.data
+                bitmap = Utils.decodeUri(this, uri, 200)
+            }
+
             bitmap?.let {
                 val file = Utils.Bitmap_to_base64(bitmap)
                 bank_images[0] = file
                 binding.bankDetail1.setImageBitmap(bitmap)
             }
-        } else if (requestCode == PICK_BANK_REQUEST2 && resultCode == RESULT_OK && data != null && data.data != null) {
+        } else if (requestCode == PICK_BANK_REQUEST2 && resultCode == RESULT_OK && data != null ) {
 
 
-            val uri = data.data
-            val bitmap = Utils.decodeUri(this, uri, 200)
+            var bitmap: Bitmap?
+            var isCamera = true
+            if (data.data != null) {
+                val action = data.action
+                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
+            }
+
+
+            if (isCamera) {
+                bitmap = data.extras?.get("data") as Bitmap?
+            } else {
+                uri = data.data
+                bitmap = Utils.decodeUri(this, uri, 200)
+            }
+
             bitmap?.let {
                 val file = Utils.Bitmap_to_base64(bitmap)
                 bank_images[1] = file
@@ -332,7 +360,7 @@ class ClaimActivity : AppCompatActivity() {
 
     fun getCities() {
         val request = ServiceBuilder.buildService(Service::class.java)
-        val call = request.getCities()
+        val call = request.getCities(AppPreferences.userid, AppPreferences.usertype)
         call.enqueue(object : Callback<LovDataList> {
             override fun onResponse(call: Call<LovDataList>, response: Response<LovDataList>) {
                 if (response.isSuccessful) {
@@ -356,7 +384,7 @@ class ClaimActivity : AppCompatActivity() {
 
     fun getHospital(city_id: String) {
         val request = ServiceBuilder.buildService(Service::class.java)
-        val call = request.getHospitals(city_id)
+        val call = request.getHospitals(city_id, AppPreferences.userid, AppPreferences.usertype)
         call.enqueue(object : Callback<LovDataList> {
             override fun onResponse(call: Call<LovDataList>, response: Response<LovDataList>) {
                 if (response.isSuccessful) {

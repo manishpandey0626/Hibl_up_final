@@ -6,20 +6,15 @@ package smsinfosolutions.ind.hibl.registration
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.AnimalDetail
-import org.healthymantra.piousvision.utilities.AnimalImages
+import smsinfosolutions.ind.hibl.utilities.AnimalImages
 
-import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.databinding.AnimalImageItemBinding
 import smsinfosolutions.ind.hibl.utilities.Utils
 
 
-class AnimalImageAdapter(val animals: List<AnimalImages>,val clicklistener: (AnimalImages,String) -> Unit,val context:Context): RecyclerView.Adapter<AnimalImageViewHolder>() {
+class AnimalImageAdapter(val animals: List<AnimalImages>, val clicklistener: (AnimalImages, String) -> Unit, val context:Context): RecyclerView.Adapter<AnimalImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalImageViewHolder {
 
         val binding =  AnimalImageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -40,7 +35,7 @@ class AnimalImageViewHolder(val binding : AnimalImageItemBinding): RecyclerView.
 
 
 
-    fun bind(animal: AnimalImages,clicklistener: (AnimalImages,String) -> Unit,context:Context) {
+    fun bind(animal: AnimalImages, clicklistener: (AnimalImages, String) -> Unit, context:Context) {
 binding.animalPhoto.setImageBitmap(Utils.Base64_to_bitmap(animal.file, context ))
 
         binding.root.setOnClickListener{

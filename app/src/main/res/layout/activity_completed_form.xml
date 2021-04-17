@@ -4,8 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".payment.PaymentListActivity">
+    tools:context=".payment.PaymentListActivity"
+    android:background="@color/offwhite">
+
     <androidx.appcompat.widget.Toolbar
+        android:background="@color/primaryTextColor"
         android:elevation="2dp"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -13,19 +16,28 @@
         android:minHeight="?attr/actionBarSize"
         app:title="@string/completed_form"
         app:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
-    </androidx.appcompat.widget.Toolbar>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
 
+    <androidx.appcompat.widget.SearchView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/primaryTextColor"
+        android:elevation="0dp"
+        android:textCursorDrawable="@null"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@null" />
 
     <androidx.recyclerview.widget.RecyclerView
-
-
-        android:layout_below="@id/toolbar"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:id="@+id/recyclerView"/>
+        android:layout_below="@id/search" />
 
 
 </RelativeLayout>

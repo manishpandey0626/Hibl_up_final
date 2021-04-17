@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import okhttp3.ResponseBody
-import org.healthymantra.piousvision.utilities.SendUserData
+import smsinfosolutions.ind.hibl.utilities.SendUserData
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

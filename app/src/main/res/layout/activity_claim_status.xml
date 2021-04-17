@@ -19,13 +19,30 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-
-
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:id="@+id/recyclerView"/>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_below="@id/toolbar"
+        android:id="@+id/shimmerFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
+    <!-- Adding 15 rows of placeholders -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+    <include layout="@layout/place_holder" />
+        <include layout="@layout/place_holder" />
+        <include layout="@layout/place_holder" />
+        <include layout="@layout/place_holder" />
+        <include layout="@layout/place_holder" />
+        <include layout="@layout/place_holder" />
+    </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 </RelativeLayout>

@@ -7,7 +7,7 @@ package smsinfosolutions.ind.hibl.utilities
 //check for changes.
 
 import okhttp3.ResponseBody
-import org.healthymantra.piousvision.utilities.*
+
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -29,12 +29,13 @@ interface Service {
     @GET("?act=GET_ANIMAL_LIST")
     fun getAnimalType(): Call<AnimalTypeLovList>
 
-    @GET("?act=GET_CITY_LIST")
-    fun getCities(): Call<LovDataList>
+    @FormUrlEncoded
+    @POST("?act=GET_CITY_LIST")
+    fun getCities(@Field("userid") userid: String, @Field("usertype") usertype: String): Call<LovDataList>
 
     @FormUrlEncoded
     @POST("?act=GET_HOSPITAL_LIST")
-    fun getHospitals(@Field("city_id") id: String): Call<LovDataList>
+    fun getHospitals(@Field("city_id") id: String,@Field("userid") userid: String, @Field("usertype") usertype: String): Call<LovDataList>
 
 
     @POST("?act=GET_BANKTYPE_LIST")
@@ -166,4 +167,25 @@ fun getClaimDetails(
     @Field("user_type") user_type: String,
     @Field("mobile_no") mobile_no: String,
     @Field("tag_no") tag_no: String): Call<ClaimDetailList>
+
+
+@FormUrlEncoded
+@POST("?act=VO_INS_DETAILS")
+fun getVoInsDetails(
+    @Field("id") id: String,
+    @Field("user_type") user_type: String): Call<InsDetails>
+
+
+@FormUrlEncoded
+@POST("?act=ADMIN_TILE_DET")
+fun getReport(
+    @Field("mobileno") mobile_no: String,
+    @Field("tileid") tile_id: String): Call<ResponseBody>
+
+@FormUrlEncoded
+@POST("?act=ADMIN_TILE")
+fun getAdminDashboard(
+    @Field("mobileno") mobile_no: String,
+    @Field("user_type") user_type: String): Call<AdminDashboard>
+
 }

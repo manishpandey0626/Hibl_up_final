@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.healthymantra.piousvision.utilities.*
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,9 +20,7 @@ import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.database.DatabaseHelper
 import smsinfosolutions.ind.hibl.databinding.ActivityAnimalRegistraionScreen2Binding
 import smsinfosolutions.ind.hibl.databinding.AnimalEntryDialogBinding
-import smsinfosolutions.ind.hibl.utilities.Service
-import smsinfosolutions.ind.hibl.utilities.ServiceBuilder
-import smsinfosolutions.ind.hibl.utilities.showMsg
+import smsinfosolutions.ind.hibl.utilities.*
 
 
 class AnimalRegistraionScreen2Activity : AppCompatActivity() {

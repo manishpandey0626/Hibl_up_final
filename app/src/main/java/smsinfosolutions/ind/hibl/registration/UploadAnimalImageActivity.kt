@@ -1,17 +1,22 @@
 package smsinfosolutions.ind.hibl.registration
 
+import android.content.ComponentName
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import org.healthymantra.piousvision.utilities.AnimalImages
+import smsinfosolutions.ind.hibl.utilities.AnimalImages
 import smsinfosolutions.ind.hibl.database.DatabaseHelper
 import smsinfosolutions.ind.hibl.databinding.ActivityUploadAnimalImageBinding
 import smsinfosolutions.ind.hibl.utilities.Utils
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.decodeUri
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getFileName
+import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getPickImageChooserIntent
 import smsinfosolutions.ind.hibl.utilities.showMsg
+import java.util.ArrayList
 
 
 class UploadAnimalImageActivity : AppCompatActivity() {
@@ -62,16 +67,15 @@ class UploadAnimalImageActivity : AppCompatActivity() {
     }
 
     private fun showFileChooser(mime_type: Array<String>, request: Int) {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
-        intent.type = "*/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//        intent.addCategory(Intent.CATEGORY_OPENABLE)
+//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
+//        intent.type = "*/*"
+//        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+//        startActivityForResult(intent, request)
 
-        //  startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        startActivityForResult(intent, request)
-
+        startActivityForResult(getPickImageChooserIntent(this,true), request)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -126,6 +130,21 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                     }
                 }
             }
+            else
+            {
+              val   bitmap = data.extras?.get("data") as Bitmap?
+                bitmap?.let {
+                    val file = Utils.Bitmap_to_base64(bitmap)
+                    val data = AnimalImages(proposal_no, tag_no, "cam${animal_images.size}", file)
+
+                    db?.let {
+                        it.insertAnimalImages(data)
+                        animal_images.clear()
+                        animal_images.addAll(it.readAnimalImages(proposal_no, tag_no))
+                        binding.recyclerView.adapter?.notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
 
@@ -160,4 +179,6 @@ class UploadAnimalImageActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

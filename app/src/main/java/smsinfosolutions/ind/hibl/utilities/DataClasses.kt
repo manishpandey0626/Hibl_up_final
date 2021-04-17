@@ -1,4 +1,4 @@
-package org.healthymantra.piousvision.utilities
+package smsinfosolutions.ind.hibl.utilities
 
 import com.google.gson.annotations.SerializedName
 
@@ -135,6 +135,8 @@ data class CompletedFormDetail(
     @SerializedName("CertificateNo") val certificate_no: String,
     @SerializedName("PolicyNo") val policy_no: String,
     @SerializedName("InsuranceFrom") val insurance_from: String,
+    @SerializedName("HospitalName") val hospital_name: String,
+    @SerializedName("HospitalId") val hospital_id: String,
 )
 
 data class CompletedFormList(
@@ -180,6 +182,52 @@ data class ShowAnimalDetail
 
 data class ShowAnimalDetailList(
     @SerializedName("data") val animal_list: List<ShowAnimalDetail>
+)
+
+data class InsDetails
+    (
+
+    @SerializedName("BIG")
+    val bIG: String,
+    @SerializedName("Balance")
+    val balance: String,
+    @SerializedName("NosAnimal")
+    val nosAnimal: String,
+    @SerializedName("Paid")
+    val paid: String,
+    @SerializedName("PaidDt")
+    val paidDt: String,
+    @SerializedName("SMALL")
+    val sMALL: String
+)
+
+data class Report(
+    @SerializedName("Col1")
+    val one:String,
+    @SerializedName("Col2")
+    val two:String,
+    @SerializedName("Col3")
+    val three:String?
+)
+
+data class ReportData
+    (
+    val data:List<Report>,
+    val title:List<String>
+            )
+
+
+data class AdminDashboard(
+    val data:List<AdminDashboardItem>
+)
+
+data class AdminDashboardItem(
+    @SerializedName("ID")
+    val iD: String,
+    @SerializedName("Nos")
+    val nos: String,
+    @SerializedName("Tile")
+    val tile: String
 )
 
 

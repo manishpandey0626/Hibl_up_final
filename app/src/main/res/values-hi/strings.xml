@@ -55,6 +55,7 @@
     <string name="payment_type">भुगतान प्रकार</string>
     <string name="bank_amount">बैंक राशि</string>
     <string name="date">दिंनाक</string>
+    <string name="death_date">मृत्यु दिंनाक</string>
     <string name="confirm_payment">भुगतान की पुष्टि करे</string>
 
     <string name="create_password">पासवर्ड बनाये</string>
@@ -96,5 +97,9 @@
     <string name="investigator_mobile">अन्वेषक का मोबाइल न.</string>
     <string name="status_date">स्थिति दिंनाक</string>
     <string name="claims">दावे</string>
+    <string name="no_of_animal_insured">बीमित पशुओ की संख्या(छोटे)</string>
+    <string name="no_of_animal_insured_small">बीमित पशुओ की संख्या(बड़े)</string>
+    <string name="paid_amt">भुगतान राशि</string>
+    <string name="paid_dt">पिछली भुगतान तिथि</string>
 
 </resources>

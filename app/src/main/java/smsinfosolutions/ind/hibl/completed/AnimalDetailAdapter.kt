@@ -7,8 +7,7 @@ package smsinfosolutions.ind.hibl.completed
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.ShowAnimalDetail
-import smsinfosolutions.ind.hibl.databinding.AnimalItemBinding
+import smsinfosolutions.ind.hibl.utilities.ShowAnimalDetail
 import smsinfosolutions.ind.hibl.databinding.ShowAnimalItemBinding
 
 

@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.healthymantra.piousvision.utilities.PaymentDetailList
+import smsinfosolutions.ind.hibl.utilities.PaymentDetailList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -3,22 +3,17 @@ package smsinfosolutions.ind.hibl.registration
 /**
  * Created by Manish on 11-Jan-21.
  */
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.AnimalDetail
+import smsinfosolutions.ind.hibl.utilities.AnimalDetail
 
-import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.databinding.AnimalItemBinding
 
 
 class AnimalListAdapter(
     val categories: List<AnimalDetail>,
-    val clicklistener: (AnimalDetail,String) -> Unit
+    val clicklistener: (AnimalDetail, String) -> Unit
 ): RecyclerView.Adapter<AnimalDetailViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalDetailViewHolder {
        // val view = LayoutInflater.from(parent.context).inflate(R.layout.animal_item, parent, false)
@@ -48,7 +43,7 @@ class AnimalDetailViewHolder(binding: AnimalItemBinding): RecyclerView.ViewHolde
   //  private val catname:TextView = itemView.findViewById(R.id.cat_title)
 
 
-    fun bind(animal: AnimalDetail, clicklistener: (AnimalDetail,String) -> Unit) {
+    fun bind(animal: AnimalDetail, clicklistener: (AnimalDetail, String) -> Unit) {
         binding.tagNo.text=animal.tag_no
         binding.animalType.text=animal.animal_type
         binding.sumInsured.text=animal.sum_insured

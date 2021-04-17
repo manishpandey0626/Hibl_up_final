@@ -3,13 +3,12 @@ package smsinfosolutions.ind.hibl.completed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.healthymantra.piousvision.utilities.CompletedFormList
-import org.healthymantra.piousvision.utilities.ShowAnimalDetailList
+import smsinfosolutions.ind.hibl.utilities.ShowAnimalDetailList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.databinding.ActivityCompletedFormDetailBinding
 import smsinfosolutions.ind.hibl.utilities.AppPreferences
 import smsinfosolutions.ind.hibl.utilities.Service
@@ -66,5 +65,13 @@ class CompletedFormDetailActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> onBackPressed()
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

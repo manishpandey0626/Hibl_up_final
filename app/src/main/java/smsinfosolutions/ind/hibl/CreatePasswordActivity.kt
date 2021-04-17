@@ -50,7 +50,7 @@ class CreatePasswordActivity : AppCompatActivity() {
                     val obj = JSONObject(json_data)
                     val success = obj.getBoolean("success")
                     if (success) {
-                        val data = obj.getString("data")
+                        //val data = obj.getString("data")
 
                         startActivity(
                             Intent(
@@ -70,7 +70,7 @@ class CreatePasswordActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+                Log.d("tag...", t.message)
 
             }
         })

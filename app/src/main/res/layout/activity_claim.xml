@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
 
-                    android:hint="@string/date">
+                    android:hint="@string/death_date">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"

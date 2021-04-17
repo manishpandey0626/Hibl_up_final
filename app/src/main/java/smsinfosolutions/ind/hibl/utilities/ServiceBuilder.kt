@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ServiceBuilder {
- private val logging= HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+ private val logging= HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
 
 

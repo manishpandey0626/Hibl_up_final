@@ -1,20 +1,21 @@
 package smsinfosolutions.ind.hibl.utilities
 
+import android.content.ComponentName
 import android.content.Context
-import android.content.res.Configuration
+import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.util.Base64
 import android.widget.Toast
-import smsinfosolutions.ind.hibl.ContextUtils
-
 import smsinfosolutions.ind.hibl.R
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.util.*
+
 
 /**
  * Created by Manish on 28-Jul-20.
@@ -27,13 +28,14 @@ fun Context.showMsg(msg: String, duration: Int = Toast.LENGTH_SHORT)
 }
 
 
+
 class Utils
 {
 
     companion object{
-        fun Bitmap_to_base64(imagebitmap: Bitmap): String {
+        fun Bitmap_to_base64(imagebitmap: Bitmap?): String {
             val baos = ByteArrayOutputStream()
-            imagebitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos)
+            imagebitmap?.compress(Bitmap.CompressFormat.JPEG, 70, baos)
             val byteArray = baos.toByteArray()
             return Base64.encodeToString(byteArray, Base64.DEFAULT)
         }
@@ -77,5 +79,74 @@ class Utils
             return BitmapFactory.decodeStream(c.contentResolver.openInputStream(uri), null, o2)
         }
 
+
+        fun getPickImageChooserIntent(context: Context, allow_multiple: Boolean = false): Intent? {
+            // Determine Uri of camera image to  save.
+            //val outputFileUri: Uri? = getCaptureImageOutputUri()
+            val allIntents: MutableList<Intent> = ArrayList()
+            // collect all camera intents
+            val captureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            val listCam = context.packageManager.queryIntentActivities(captureIntent, 0)
+            for (res in listCam) {
+                val intent = Intent(captureIntent)
+                intent.component =
+                    ComponentName(res.activityInfo.packageName, res.activityInfo.name)
+                intent.setPackage(res.activityInfo.packageName)
+                /*if (outputFileUri != null) {
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
+                }*/
+                allIntents.add(intent)
+            }
+
+            // collect all gallery intents
+            val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+            galleryIntent.type = "image/*"
+            val listGallery = context.packageManager.queryIntentActivities(galleryIntent, 0)
+            for (res in listGallery) {
+                val intent = Intent(galleryIntent)
+                intent.component =
+                    ComponentName(res.activityInfo.packageName, res.activityInfo.name)
+                intent.setPackage(res.activityInfo.packageName)
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, allow_multiple)
+                allIntents.add(intent)
+            }
+            // the main intent is the last in the  list  so pickup the useless one
+            var mainIntent = allIntents[allIntents.size - 1]
+            for (intent in allIntents) {
+                if (intent.component!!.className == "com.android.documentsui.DocumentsActivity") {
+                    mainIntent = intent
+                    break
+                }
+            }
+            allIntents.remove(mainIntent)
+            // Create a chooser from the main  intent
+            val chooserIntent = Intent.createChooser(mainIntent, "Select source")
+            // Add all other intents
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toTypedArray())
+            return chooserIntent
+        }
+
+
+        fun play(context:Context,player:MediaPlayer,fileName: String) {
+            val descriptor: AssetFileDescriptor = context.getAssets().openFd(fileName)
+            val start = descriptor.startOffset
+            val end = descriptor.length
+            player.setDataSource(descriptor.fileDescriptor, start, end)
+            player.prepare()
+            player.start()
+        }
+
+        fun stop(context: Context,player:MediaPlayer)
+        {
+            if(player.isPlaying)
+            {
+                player.stop()
+                player.reset()
+            }
+        }
+
     }
+
+
+
 }

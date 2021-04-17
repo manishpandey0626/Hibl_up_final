@@ -11,8 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.SendUserData
-import org.healthymantra.piousvision.utilities.UserData
+import smsinfosolutions.ind.hibl.utilities.SendUserData
 import smsinfosolutions.ind.hibl.R
 
 

@@ -7,7 +7,7 @@ package smsinfosolutions.ind.hibl.claim
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.ClaimDetail
+import smsinfosolutions.ind.hibl.utilities.ClaimDetail
 import smsinfosolutions.ind.hibl.databinding.ItemTimelineBinding
 
 

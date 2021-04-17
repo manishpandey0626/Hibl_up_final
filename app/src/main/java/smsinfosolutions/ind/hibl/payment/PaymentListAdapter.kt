@@ -13,8 +13,7 @@ import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.healthymantra.piousvision.utilities.PaymentDetail
-import org.healthymantra.piousvision.utilities.SendUserData
+import smsinfosolutions.ind.hibl.utilities.PaymentDetail
 
 import smsinfosolutions.ind.hibl.R
 

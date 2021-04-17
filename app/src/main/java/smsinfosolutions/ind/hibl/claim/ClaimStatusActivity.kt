@@ -5,15 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.healthymantra.piousvision.utilities.Claim
-import org.healthymantra.piousvision.utilities.ClaimList
-import org.healthymantra.piousvision.utilities.CompletedFormDetail
+import smsinfosolutions.ind.hibl.utilities.Claim
+import smsinfosolutions.ind.hibl.utilities.ClaimList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import smsinfosolutions.ind.hibl.completed.CompletedFormAdapter
 import smsinfosolutions.ind.hibl.databinding.ActivityClaimStatusBinding
 import smsinfosolutions.ind.hibl.utilities.AppPreferences
 import smsinfosolutions.ind.hibl.utilities.Service
@@ -61,13 +60,16 @@ class ClaimStatusActivity : AppCompatActivity() {
                 response: Response<ClaimList>
             ) {
                 if (response.isSuccessful) {
-
+                    binding.shimmerFrameLayout.stopShimmer()
+                    binding.shimmerFrameLayout.visibility= View.GONE
                     adapter = ClaimListAdapter(response.body()!!.claimList,{ c->itemClicked(c)})
                     binding.recyclerView.adapter = adapter
                 }
             }
 
             override fun onFailure(call: Call<ClaimList>, t: Throwable) {
+                binding.shimmerFrameLayout.stopShimmer()
+                binding.shimmerFrameLayout.visibility= View.GONE
                 showMsg("on FAilure ${t.message}")
                 Log.d("tag...", t.message);
 
@@ -90,5 +92,14 @@ class ClaimStatusActivity : AppCompatActivity() {
 
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.shimmerFrameLayout.startShimmer()
+    }
+    override fun onPause() {
+        binding.shimmerFrameLayout.stopShimmer()
+        super.onPause()
     }
 }

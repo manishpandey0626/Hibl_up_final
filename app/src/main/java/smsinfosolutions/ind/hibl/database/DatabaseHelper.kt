@@ -7,7 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import org.healthymantra.piousvision.utilities.*
+import smsinfosolutions.ind.hibl.utilities.*
 
 class DatabaseHelper(var context: Context) : SQLiteOpenHelper(
     context, DATABASE_NAME, null,
@@ -364,7 +364,7 @@ class DatabaseHelper(var context: Context) : SQLiteOpenHelper(
     }
 
     fun readPremiumDetail(proposal_no: String): PremiumDetail? {
-       var  premium_detail:PremiumDetail
+       var  premium_detail: PremiumDetail
         val db = this.readableDatabase
         val query = "Select * from premium_detail where proposal_no=$proposal_no"
         val result = db.rawQuery(query, null)

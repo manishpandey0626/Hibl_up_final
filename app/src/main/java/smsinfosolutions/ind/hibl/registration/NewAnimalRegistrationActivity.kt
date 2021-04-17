@@ -1,17 +1,13 @@
 package smsinfosolutions.ind.hibl.registration
 
-import android.Manifest
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -20,25 +16,16 @@ import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import org.healthymantra.piousvision.utilities.*
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.database.DatabaseHelper
 import smsinfosolutions.ind.hibl.databinding.ActivityNewAnimalRegistrationBinding
-import smsinfosolutions.ind.hibl.utilities.AppPreferences
-import smsinfosolutions.ind.hibl.utilities.Service
-import smsinfosolutions.ind.hibl.utilities.ServiceBuilder
+import smsinfosolutions.ind.hibl.utilities.*
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.Base64_to_bitmap
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.Bitmap_to_base64
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.decodeUri
-import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getFileName
-import smsinfosolutions.ind.hibl.utilities.showMsg
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileNotFoundException
+import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getPickImageChooserIntent
 import java.util.*
 
 class NewAnimalRegistrationActivity : AppCompatActivity() {
@@ -61,11 +48,12 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
     private  var area_code:String?=null
     private  var duration_code:String?=null
     private var city_code:String?=null
-    private var hospital_code:String?=null
-    private  var data:UserData?=null
+    private var hospital_code: String? = null
+    private var data: UserData? = null
     var app_permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,9 +77,9 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
             data?.let {
 
                 binding.proposalNoTxt.setText(it.proposal_no)
-                binding.proposalNoUpload.setImageBitmap(Base64_to_bitmap(it.proposal_img,this))
+                binding.proposalNoUpload.setImageBitmap(Base64_to_bitmap(it.proposal_img, this))
                 binding.adharNo.editText?.setText(it.aadhar_no)
-                binding.aadharNoUpload.setImageBitmap(Base64_to_bitmap(it.aadhar_img,this))
+                binding.aadharNoUpload.setImageBitmap(Base64_to_bitmap(it.aadhar_img, this))
                 proposal_img=it.proposal_img
                 aadhar_img=it.aadhar_img
                 binding.noOfAnimals.editText?.setText(it.no_of_animal)
@@ -115,10 +103,10 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
         {
             binding.hospitalTxt.setText(AppPreferences.hospital_name)
             hospital_code=AppPreferences.hospital_id
-            binding.hospital.visibility=View.GONE
+           // binding.hospital.visibility=View.GONE
             binding.cityTxt.setText(AppPreferences.city_name)
             city_code=AppPreferences.city_id
-            binding.city.visibility= View.GONE
+           // binding.city.visibility= View.GONE
         }
         else
         {
@@ -209,18 +197,20 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
             }
             val result=insertIntoDatabase(db)
 
-            if(result!=-1.toLong())
-            {
-                val intent=Intent(
+            if(result!=-1.toLong()) {
+                val intent = Intent(
                     this@NewAnimalRegistrationActivity,
                     AnimalRegistraionScreen2Activity::class.java
                 )
-                intent.putExtra("proposal_no",binding.proposalNoTxt.text.toString())
-                intent.putExtra("no_of_animal",binding.noOfAnimals?.editText?.text.toString().toInt())
-                intent.putExtra("area_code",area_code)
-                intent.putExtra("category_code",category_code)
-                intent.putExtra("duration_code",duration_code)
-                intent.putExtra("wptd",binding.wptd.isChecked.toString())
+                intent.putExtra("proposal_no", binding.proposalNoTxt.text.toString())
+                intent.putExtra(
+                    "no_of_animal",
+                    binding.noOfAnimals?.editText?.text.toString().toInt()
+                )
+                intent.putExtra("area_code", area_code)
+                intent.putExtra("category_code", category_code)
+                intent.putExtra("duration_code", duration_code)
+                intent.putExtra("wptd", binding.wptd.isChecked.toString())
                 startActivity(intent)
 
             }
@@ -255,18 +245,14 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
     private fun showFileChooser(mime_type: Array<String>, request: Int) {
         if (storage_permission) {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            // intent.setType("image/*");
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
+//            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//            intent.addCategory(Intent.CATEGORY_OPENABLE)
+//            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
+//            intent.type = "*/*"
+//            startActivityForResult(intent, request)
 
-            //  intent.setAction(Intent.ACTION_GET_CONTENT);
-
-            //intent.setType(file_type);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
-            intent.type = "*/*"
-            //  startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            startActivityForResult(intent, request)
+            startActivityForResult(getPickImageChooserIntent(this), request)
         } else {
 
         }
@@ -335,27 +321,45 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            uri = data.data
-            val file_name = getFileName(this,uri)
+        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null) {
+            var bitmap: Bitmap?
+            var isCamera = true
+            if (data.data != null) {
+                val action = data.action
+                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
+            }
 
 
-            // bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            if (isCamera) {
+                bitmap = data.extras?.get("data") as Bitmap?
+            } else {
+                uri = data.data
+                bitmap = decodeUri(this, uri, 200)
+            }
 
-            // bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            val bitmap = decodeUri(this, uri, 200)
             bitmap?.let {
-                binding.proposalNoUpload.setImageBitmap(bitmap)
-                proposal_img = Bitmap_to_base64(bitmap)
+                binding.proposalNoUpload.setImageBitmap(it)
+                proposal_img = Bitmap_to_base64(it)
 
             }
-        } else if (requestCode == PICK_AADHAR_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-            uri = data.data
-            val file_name = getFileName(this,uri)
-            val bitmap = decodeUri(this, uri, 200)
+        } else if (requestCode == PICK_AADHAR_REQUEST && resultCode == RESULT_OK && data != null) {
+            var bitmap: Bitmap?
+            var isCamera = true
+            if (data.data != null) {
+                val action = data.action
+                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
+            }
+
+
+            if (isCamera) {
+                bitmap = data.extras?.get("data") as Bitmap?
+            } else {
+                uri = data.data
+                bitmap = decodeUri(this, uri, 200)
+            }
             bitmap?.let {
-                binding.aadharNoUpload.setImageBitmap(bitmap)
-                aadhar_img = Bitmap_to_base64(bitmap)
+                binding.aadharNoUpload.setImageBitmap(it)
+                aadhar_img = Bitmap_to_base64(it)
 
             }
 
@@ -473,7 +477,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
     fun getCities() {
         val request = ServiceBuilder.buildService(Service::class.java)
-        val call = request.getCities()
+        val call = request.getCities(AppPreferences.userid,AppPreferences.usertype)
         call.enqueue(object : Callback<LovDataList> {
             override fun onResponse(call: Call<LovDataList>, response: Response<LovDataList>) {
                 if (response.isSuccessful) {
@@ -495,9 +499,9 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
         })
     }
 
-    fun getHospital(city_id:String) {
+    fun getHospital(city_id: String) {
         val request = ServiceBuilder.buildService(Service::class.java)
-        val call = request.getHospitals(city_id)
+        val call = request.getHospitals(city_id,AppPreferences.userid,AppPreferences.usertype)
         call.enqueue(object : Callback<LovDataList> {
             override fun onResponse(call: Call<LovDataList>, response: Response<LovDataList>) {
                 if (response.isSuccessful) {
@@ -521,15 +525,14 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.getItemId()) {
-            android.R.id.home ->onBackPressed()
+            android.R.id.home -> onBackPressed()
 
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun insertIntoDatabase(db:DatabaseHelper):Long
-    {
-        val result=db.insertData(
+    fun insertIntoDatabase(db: DatabaseHelper): Long {
+        val result = db.insertData(
             UserData(
                 binding.proposalNoTxt.text.toString(),
                 proposal_img,
@@ -554,4 +557,20 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
         return result;
     }
+
+
+
+
+
+    //    /**
+    //     * Get URI to image received from capture  by camera.
+    //     */
+/*    private fun getCaptureImageOutputUri(): Uri? {
+        var outputFileUri: Uri? = null
+        val getImage = externalCacheDir
+        if (getImage != null) {
+            outputFileUri = Uri.fromFile(File(getImage.path, "pickImageResult.jpeg"))
+        }
+        return outputFileUri
+    }*/
 }

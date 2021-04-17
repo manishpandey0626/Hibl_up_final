@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -14,6 +13,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import smsinfosolutions.ind.hibl.admin.AdminDashboardActivity
 import smsinfosolutions.ind.hibl.databinding.ActivityLoginBinding
 import smsinfosolutions.ind.hibl.utilities.AppPreferences
 import smsinfosolutions.ind.hibl.utilities.Service
@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+                // Log.d("tag...", t.message);
 
             }
         })
@@ -148,8 +148,17 @@ class LoginActivity : AppCompatActivity() {
                             )
                             finish()
                         } else {
-                            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
-                            finish()
+                            if (AppPreferences.usertype == "ADMIN") {
+                                val i =
+                                    Intent(this@LoginActivity, AdminDashboardActivity::class.java)
+                                startActivity(i)
+                                finish()
+                            } else {
+                                val i = Intent(this@LoginActivity, DashboardActivity::class.java)
+                                startActivity(i)
+                                finish()
+
+                            }
                         }
 
                     } else {
@@ -161,7 +170,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+                //Log.d("tag...", t.message);
 
             }
         })

@@ -19,5 +19,5 @@
 
     <color name="border_color">#6B000000</color>
 
-
+    <color name="colorGrey">#dddddd</color>
 </resources>
