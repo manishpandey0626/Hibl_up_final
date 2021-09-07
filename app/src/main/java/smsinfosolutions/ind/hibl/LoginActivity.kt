@@ -139,6 +139,7 @@ class LoginActivity : AppCompatActivity() {
                         AppPreferences.branch = data.getString("Branch")
                         AppPreferences.account = data.getString("AccountNo")
                         AppPreferences.ifsc = data.getString("IFSC")
+                        AppPreferences.img_res = data.optInt("img_res",512)
                         if (pwd == "N") {
                             startActivity(
                                 Intent(

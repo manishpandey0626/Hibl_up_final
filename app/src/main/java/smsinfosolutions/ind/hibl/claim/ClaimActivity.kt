@@ -29,6 +29,8 @@ import smsinfosolutions.ind.hibl.database.DatabaseHelper
 import smsinfosolutions.ind.hibl.databinding.ActivityClaimBinding
 import smsinfosolutions.ind.hibl.registration.UploadAnimalImageActivity
 import smsinfosolutions.ind.hibl.utilities.*
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 class ClaimActivity : AppCompatActivity() {
@@ -43,7 +45,7 @@ class ClaimActivity : AppCompatActivity() {
     private var bank_images: Array<String?> = arrayOfNulls(2)
     private var animal_images: MutableList<AnimalImages> = arrayListOf()
     private lateinit var  db:DatabaseHelper
-
+    private var imageUri: String?=null
     val items = listOf("Death", "PTD")
 
     private lateinit var cities_lov: List<LovData>
@@ -220,7 +222,14 @@ class ClaimActivity : AppCompatActivity() {
 //            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
 //            intent.type = "*/*"
 //            startActivityForResult(intent, request)
-           startActivityForResult(Utils.getPickImageChooserIntent(this), request)
+           val photoFile: File? = try {
+               Utils.createImageFile(this)
+
+           } catch (ex: IOException) {
+               null
+           }
+           imageUri=photoFile?.absolutePath
+           startActivityForResult(Utils.getPickImageChooserIntent(this, photoFile =photoFile), request)
         } else {
 
         }
@@ -289,20 +298,13 @@ class ClaimActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null ) {
+        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK  ) {
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data==null) {
+                bitmap = imageUri?.let { Utils.decodeUri(it) } ?:null
             } else {
                 uri = data.data
-                bitmap = Utils.decodeUri(this, uri, 200)
+                bitmap = Utils.decodeUri(this, uri)
             }
 
             bitmap?.let {
@@ -310,21 +312,14 @@ class ClaimActivity : AppCompatActivity() {
                 proposal_img = Utils.Bitmap_to_base64(bitmap)
 
             }
-        } else if (requestCode == PICK_BANK_REQUEST && resultCode == RESULT_OK && data != null ) {
+        } else if (requestCode == PICK_BANK_REQUEST && resultCode == RESULT_OK  ) {
 
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data==null) {
+                bitmap = imageUri?.let { Utils.decodeUri(it) } ?:null
             } else {
                 uri = data.data
-                bitmap = Utils.decodeUri(this, uri, 200)
+                bitmap = Utils.decodeUri(this, uri)
             }
 
             bitmap?.let {
@@ -332,22 +327,15 @@ class ClaimActivity : AppCompatActivity() {
                 bank_images[0] = file
                 binding.bankDetail1.setImageBitmap(bitmap)
             }
-        } else if (requestCode == PICK_BANK_REQUEST2 && resultCode == RESULT_OK && data != null ) {
+        } else if (requestCode == PICK_BANK_REQUEST2 && resultCode == RESULT_OK ) {
 
 
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data==null) {
+                bitmap = imageUri?.let { Utils.decodeUri(it) } ?:null
             } else {
                 uri = data.data
-                bitmap = Utils.decodeUri(this, uri, 200)
+                bitmap = Utils.decodeUri(this, uri)
             }
 
             bitmap?.let {

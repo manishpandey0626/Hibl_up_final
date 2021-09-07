@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Hibl</string>
+    <string name="app_name">Hibl HP</string>
     <string name="mobile_no">मोबाइल नंबर </string>
     <string name="otp">ओ टी पी </string>
     <string name="login">लॉग इन</string>
     <string name="selectedlanguage">हिंदी</string>
     <string name="language">नमस्ते दुनिया</string>
-    <string name="logo_text">उत्तर प्रदेश</string>
+    <string name="logo_text">हिमाचल प्रदेश</string>
 
 
     <string name="conti">जारि रखे</string>

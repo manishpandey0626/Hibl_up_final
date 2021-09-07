@@ -1,8 +1,9 @@
 package smsinfosolutions.ind.hibl.registration
 
-import android.content.ComponentName
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
@@ -16,7 +17,8 @@ import smsinfosolutions.ind.hibl.utilities.Utils.Companion.decodeUri
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getFileName
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getPickImageChooserIntent
 import smsinfosolutions.ind.hibl.utilities.showMsg
-import java.util.ArrayList
+import java.io.File
+import java.io.IOException
 
 
 class UploadAnimalImageActivity : AppCompatActivity() {
@@ -28,6 +30,7 @@ class UploadAnimalImageActivity : AppCompatActivity() {
     private lateinit var tag_no: String
     private  var type: String?=null
     private  var max_limit:Int=4
+    private var imageUri: String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadAnimalImageBinding.inflate(layoutInflater)
@@ -74,8 +77,15 @@ class UploadAnimalImageActivity : AppCompatActivity() {
 //        intent.type = "*/*"
 //        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
 //        startActivityForResult(intent, request)
+        val photoFile: File? = try {
+            Utils.createImageFile(this)
 
-        startActivityForResult(getPickImageChooserIntent(this,true), request)
+        } catch (ex: IOException) {
+            null
+        }
+        imageUri=photoFile?.absolutePath
+
+        startActivityForResult(getPickImageChooserIntent(this, true, photoFile), request)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -92,7 +102,7 @@ class UploadAnimalImageActivity : AppCompatActivity() {
 
                         val file_name = getFileName(this, uri)
 
-                        val bitmap = decodeUri(this, uri, 200)
+                        val bitmap = decodeUri(this, uri)
                         bitmap?.let {
                             val file = Utils.Bitmap_to_base64(bitmap)
                             val data = AnimalImages(proposal_no, tag_no, file_name, file)
@@ -117,7 +127,7 @@ class UploadAnimalImageActivity : AppCompatActivity() {
 
                 val file_name = getFileName(this, uri)
 
-                val bitmap = decodeUri(this, uri, 200)
+                val bitmap = decodeUri(this, uri)
                 bitmap?.let {
                     val file = Utils.Bitmap_to_base64(bitmap)
                     val data = AnimalImages(proposal_no, tag_no, file_name, file)
@@ -129,10 +139,11 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                         binding.recyclerView.adapter?.notifyDataSetChanged()
                     }
                 }
-            }
-            else
-            {
-              val   bitmap = data.extras?.get("data") as Bitmap?
+            }}
+        else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK)
+        {
+                val bitmap = imageUri?.let {decodeUri(it) } ?:null
+                //val bitmap = data.extras?.get("data") as Bitmap?
                 bitmap?.let {
                     val file = Utils.Bitmap_to_base64(bitmap)
                     val data = AnimalImages(proposal_no, tag_no, "cam${animal_images.size}", file)
@@ -145,7 +156,7 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

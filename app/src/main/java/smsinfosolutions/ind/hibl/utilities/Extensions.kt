@@ -8,12 +8,17 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import smsinfosolutions.ind.hibl.R
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.FileNotFoundException
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -35,7 +40,7 @@ class Utils
     companion object{
         fun Bitmap_to_base64(imagebitmap: Bitmap?): String {
             val baos = ByteArrayOutputStream()
-            imagebitmap?.compress(Bitmap.CompressFormat.JPEG, 70, baos)
+            imagebitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val byteArray = baos.toByteArray()
             return Base64.encodeToString(byteArray, Base64.DEFAULT)
         }
@@ -61,7 +66,35 @@ class Utils
         }
 
         @Throws(FileNotFoundException::class)
-        fun decodeUri(c: Context, uri: Uri?, requiredSize: Int): Bitmap? {
+        fun decodeUri(uri: String): Bitmap? {
+            val targetW: Int = AppPreferences.img_res
+            val targetH: Int = AppPreferences.img_res
+
+
+            val bmOptions = BitmapFactory.Options().apply {
+                // Get the dimensions of the bitmap
+                inJustDecodeBounds = true
+
+                BitmapFactory.decodeFile(uri, this)
+
+                val photoW: Int = outWidth
+                val photoH: Int = outHeight
+
+                // Determine how much to scale down the image
+                val scaleFactor: Int = Math.max(1, Math.min(photoW / targetW, photoH / targetH))
+
+                // Decode the image file into a Bitmap sized to fill the View
+                inJustDecodeBounds = false
+                inSampleSize = scaleFactor
+                inPurgeable = true
+            }
+            return BitmapFactory.decodeFile(uri, bmOptions)
+
+        }
+
+        @Throws(FileNotFoundException::class)
+        fun decodeUri(c: Context, uri: Uri?): Bitmap? {
+            val requiredSize=AppPreferences.img_res
             val o = BitmapFactory.Options()
             o.inJustDecodeBounds = true
             BitmapFactory.decodeStream(c.contentResolver.openInputStream(uri!!), null, o)
@@ -76,11 +109,17 @@ class Utils
             }
             val o2 = BitmapFactory.Options()
             o2.inSampleSize = scale
-            return BitmapFactory.decodeStream(c.contentResolver.openInputStream(uri), null, o2)
+
+
+            return BitmapFactory.decodeStream(c.contentResolver.openInputStream(uri!!), null, o2)
+            //return BitmapFactory.decodeStream(c.contentResolver.openInputStream(uri!!))
         }
 
-
-        fun getPickImageChooserIntent(context: Context, allow_multiple: Boolean = false): Intent? {
+        fun getPickImageChooserIntent(
+            context: Context,
+            allow_multiple: Boolean = false,
+            photoFile: File?
+        ): Intent? {
             // Determine Uri of camera image to  save.
             //val outputFileUri: Uri? = getCaptureImageOutputUri()
             val allIntents: MutableList<Intent> = ArrayList()
@@ -92,9 +131,19 @@ class Utils
                 intent.component =
                     ComponentName(res.activityInfo.packageName, res.activityInfo.name)
                 intent.setPackage(res.activityInfo.packageName)
-                /*if (outputFileUri != null) {
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
-                }*/
+
+
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        context,
+                        "up.in.hibl.fileprovider",
+                        it
+                    )
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                }
+
+
                 allIntents.add(intent)
             }
 
@@ -125,6 +174,24 @@ class Utils
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, allIntents.toTypedArray())
             return chooserIntent
         }
+
+
+        @Throws(IOException::class)
+         fun createImageFile(context:Context): File {
+            // Create an image file name
+            val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+
+            val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+            )/*.apply {
+                // Save a file: path for use with ACTION_VIEW intents
+                currentPhotoPath = absolutePath
+            }*/
+        }
+
 
 
         fun play(context:Context,player:MediaPlayer,fileName: String) {

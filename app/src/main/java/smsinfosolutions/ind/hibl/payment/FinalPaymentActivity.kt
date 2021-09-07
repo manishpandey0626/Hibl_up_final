@@ -25,6 +25,8 @@ import retrofit2.Response
 import smsinfosolutions.ind.hibl.DashboardActivity
 import smsinfosolutions.ind.hibl.databinding.ActivityFinalPaymentBinding
 import smsinfosolutions.ind.hibl.utilities.*
+import java.io.File
+import java.io.IOException
 import java.text.DecimalFormat
 import java.util.*
 
@@ -42,6 +44,7 @@ class FinalPaymentActivity : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+    private var imageUri: String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -213,7 +216,14 @@ class FinalPaymentActivity : AppCompatActivity() {
 //            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
 //            intent.type = "*/*"
 //            startActivityForResult(intent, request)
-            startActivityForResult(Utils.getPickImageChooserIntent(this, true), request)
+            val photoFile: File? = try {
+                Utils.createImageFile(this)
+
+            } catch (ex: IOException) {
+                null
+            }
+            imageUri=photoFile?.absolutePath
+            startActivityForResult(Utils.getPickImageChooserIntent(this, true, photoFile), request)
         } else {
 
         }
@@ -221,20 +231,13 @@ class FinalPaymentActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_RECEIPT_REQUEST && resultCode == RESULT_OK && data != null ) {
+        if (requestCode == PICK_RECEIPT_REQUEST && resultCode == RESULT_OK  ) {
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data==null) {
+                bitmap = imageUri?.let { Utils.decodeUri(it) } ?:null
             } else {
                 uri = data.data
-                bitmap = Utils.decodeUri(this, uri, 200)
+                bitmap = Utils.decodeUri(this, uri)
             }
 
             bitmap?.let {

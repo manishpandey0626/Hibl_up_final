@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object ServiceBuilder {
- private val logging= HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+ private val logging= HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
 
 
 
@@ -23,7 +23,7 @@ object ServiceBuilder {
         .setLenient()
         .create()
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://apppro.hibl.co.in:5050/api/index.php/")
+        .baseUrl("https://apppro.hibl.co.in:4433/api/index.php/")
         .addConverterFactory(GsonConverterFactory.create(gson))
         .client(client)
 

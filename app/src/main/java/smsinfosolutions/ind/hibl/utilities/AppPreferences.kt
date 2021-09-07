@@ -31,6 +31,7 @@ object AppPreferences {
     private val BRANCH=Pair("branch","")
     private val ACCOUNT=Pair("account","")
     private val IFSC=Pair("ifsc","")
+    private val IMAGE_RES=Pair("img_res",512)
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences(NAME, MODE)
@@ -75,6 +76,12 @@ object AppPreferences {
         get()= preferences.getString(USER_NAME.first, USER_NAME.second)
         set(value)= preferences.edit{
             it.putString(USER_NAME.first,value)
+        }
+
+    var img_res: Int
+        get()= preferences.getInt(IMAGE_RES.first, IMAGE_RES.second)!!
+        set(value)= preferences.edit{
+            it.putInt(IMAGE_RES.first,value)
         }
 
     var usertype: String

@@ -26,6 +26,8 @@ import smsinfosolutions.ind.hibl.utilities.Utils.Companion.Base64_to_bitmap
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.Bitmap_to_base64
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.decodeUri
 import smsinfosolutions.ind.hibl.utilities.Utils.Companion.getPickImageChooserIntent
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 class NewAnimalRegistrationActivity : AppCompatActivity() {
@@ -45,16 +47,18 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
     private lateinit var hospitals_lov:List<LovData>
     private lateinit var proposal_no:String
     private  var category_code:String?=null
-    private  var area_code:String?=null
-    private  var duration_code:String?=null
-    private var city_code:String?=null
+    private var area_code: String? = null
+    private var duration_code: String? = null
+    private var city_code: String? = null
     private var hospital_code: String? = null
     private var data: UserData? = null
-    var app_permissions = arrayOf(
+    private var app_permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.CAMERA
     )
+
+    private var imageUri: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -251,8 +255,15 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 //            intent.putExtra(Intent.EXTRA_MIME_TYPES, mime_type)
 //            intent.type = "*/*"
 //            startActivityForResult(intent, request)
+            val photoFile: File? = try {
+                Utils.createImageFile(this)
 
-            startActivityForResult(getPickImageChooserIntent(this), request)
+            } catch (ex: IOException) {
+                null
+            }
+            imageUri = photoFile?.absolutePath
+
+            startActivityForResult(getPickImageChooserIntent(this, photoFile = photoFile), request)
         } else {
 
         }
@@ -321,20 +332,14 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK && data != null) {
+        if (requestCode == PICK_PROPOSAL_REQUEST && resultCode == RESULT_OK) {
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data == null) {
+//                bitmap = data.extras?.get("data") as Bitmap?
+                bitmap = imageUri?.let { decodeUri(it) } ?: null
             } else {
                 uri = data.data
-                bitmap = decodeUri(this, uri, 200)
+                bitmap = decodeUri(this, uri)
             }
 
             bitmap?.let {
@@ -342,20 +347,13 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
                 proposal_img = Bitmap_to_base64(it)
 
             }
-        } else if (requestCode == PICK_AADHAR_REQUEST && resultCode == RESULT_OK && data != null) {
+        } else if (requestCode == PICK_AADHAR_REQUEST && resultCode == RESULT_OK) {
             var bitmap: Bitmap?
-            var isCamera = true
-            if (data.data != null) {
-                val action = data.action
-                isCamera = action != null && action == MediaStore.ACTION_IMAGE_CAPTURE
-            }
-
-
-            if (isCamera) {
-                bitmap = data.extras?.get("data") as Bitmap?
+            if (data==null) {
+                bitmap = imageUri?.let { decodeUri(it) } ?: null
             } else {
                 uri = data.data
-                bitmap = decodeUri(this, uri, 200)
+                bitmap = decodeUri(this, uri)
             }
             bitmap?.let {
                 binding.aadharNoUpload.setImageBitmap(it)
