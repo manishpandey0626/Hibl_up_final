@@ -71,7 +71,7 @@ class ClaimStatusActivity : AppCompatActivity() {
                 binding.shimmerFrameLayout.stopShimmer()
                 binding.shimmerFrameLayout.visibility= View.GONE
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

@@ -25,17 +25,16 @@
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         android:layout_above="@id/upload"
         android:id="@+id/recyclerView"/>
 
-    <com.google.android.material.button.MaterialButton
+<!--    <com.google.android.material.button.MaterialButton
         android:padding="16dp"
         android:id="@+id/upload"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_photo"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"/>-->
 
 </RelativeLayout>
 

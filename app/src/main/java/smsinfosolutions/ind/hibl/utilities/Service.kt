@@ -188,4 +188,25 @@ fun getAdminDashboard(
     @Field("mobileno") mobile_no: String,
     @Field("user_type") user_type: String): Call<AdminDashboard>
 
+
+
+    @FormUrlEncoded
+    @POST("?act=UPD_OTP_NEW")
+    fun getProfileUdateOTP(
+        @Field("id") id: String,
+        @Field("user_type") user_type: String,
+        @Field("mobile") mobile_no: String,
+    ): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("?act=UPD_PROFILE")
+    fun updateProfile(
+        @Field("id") id: String,
+        @Field("user_type") user_type: String,
+        @Field("otp") otp: String,
+        @Field("type") type: String,
+        @Field("txt") txt: String,
+    ): Call<ResponseBody>
+
 }

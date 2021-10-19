@@ -21,7 +21,7 @@ class AnimalRegistrationFinalActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        val proposal_no = intent.getStringExtra("proposal_no")
+        val proposal_no = intent.getStringExtra("proposal_no").toString()
         val db = DatabaseHelper(this)
         val premium_detail = db?.readPremiumDetail(proposal_no)
 

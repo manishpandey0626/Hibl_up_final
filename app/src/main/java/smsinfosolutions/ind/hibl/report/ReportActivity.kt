@@ -31,7 +31,7 @@ class ReportActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-        tile_no=intent.getStringExtra("tile_no")
+        tile_no=intent.getStringExtra("tile_no").toString()
         binding.recyclerView.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.VERTICAL,
@@ -82,7 +82,7 @@ class ReportActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message)
+
 
             }
         })

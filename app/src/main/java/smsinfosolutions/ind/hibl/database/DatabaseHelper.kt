@@ -97,10 +97,10 @@ class DatabaseHelper(var context: Context) : SQLiteOpenHelper(
         return result
 
     }
-    fun deleteAnimalImage(proposal_no: String,tag_no: String,file_name:String):Int
+    fun deleteAnimalImage(proposal_no: String,tag_no: String):Int
     {
-        val whereclause = "proposal_no=? and tag_no=? and file_name=?"
-        val whereargs = arrayOf(proposal_no,tag_no,file_name)
+        val whereclause = "proposal_no=? and tag_no=?"
+        val whereargs = arrayOf(proposal_no,tag_no)
         val database = this.writableDatabase
 
 
@@ -342,7 +342,7 @@ class DatabaseHelper(var context: Context) : SQLiteOpenHelper(
         var cnt = -1
         val db = this.readableDatabase
         val query =
-            "Select count(1) as cnt from animal_images where proposal_no=$proposal_no and tag_no=$tag_no"
+            "Select count(1) as cnt from animal_images where proposal_no=$proposal_no and tag_no=$tag_no and file is not null"
         val result = db.rawQuery(query, null)
         if (result.moveToFirst()) {
             cnt = result.getInt(result.getColumnIndex("cnt"))

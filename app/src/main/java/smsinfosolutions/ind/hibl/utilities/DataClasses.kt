@@ -100,7 +100,7 @@ data class AnimalImages(
     val proposal_no: String,
     val tag_no: String,
     val file_name: String,
-    val file: String,
+    val file: String?,
 
     )
 

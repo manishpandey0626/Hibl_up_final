@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Html
 import android.util.Log
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -57,8 +58,11 @@ class FinalPaymentActivity : AppCompatActivity() {
 
         val total_bal = intent.getDoubleExtra("total_bal", 0.00)
         val df = DecimalFormat("#.00")
-         proposal_nos=intent.getStringExtra("proposal_nos")
+         proposal_nos=intent.getStringExtra("proposal_nos").toString()
          binding.totalAmt.editText?.setText(df.format(total_bal))
+
+        binding.terms.setText(Html.fromHtml("I accept following terms and conditions:<br><br><font-color:'red'> 1.Excess amount against the premium, if deposit is not advocated.</br></br><br><br>2.If excess amount is deposited that will not be adjusted/refunded.</br></br>"))
+
         binding.dateLayout.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
@@ -122,6 +126,13 @@ class FinalPaymentActivity : AppCompatActivity() {
         requestStoragePermission()
         getBankType()
 
+        binding.check.setOnCheckedChangeListener { compoundButton, b ->
+
+                binding.save.isEnabled=b
+
+        }
+
+
     }
 
     fun getBankType() {
@@ -142,7 +153,7 @@ class FinalPaymentActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -283,7 +294,7 @@ class FinalPaymentActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="smsinfosolutions.ind.hibl">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -49,6 +50,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="screenOrientation" />
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="up.in.hibl.fileprovider"
@@ -60,5 +67,5 @@
         </provider>
 
     </application>
-
+    <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
 </manifest>

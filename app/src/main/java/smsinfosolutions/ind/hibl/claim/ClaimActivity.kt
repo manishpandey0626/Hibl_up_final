@@ -364,7 +364,7 @@ class ClaimActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+                //
 
             }
         })
@@ -388,7 +388,7 @@ class ClaimActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -441,7 +441,7 @@ class ClaimActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

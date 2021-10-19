@@ -6,8 +6,10 @@ package smsinfosolutions.ind.hibl.registration
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import smsinfosolutions.ind.hibl.R
 import smsinfosolutions.ind.hibl.utilities.AnimalImages
 
 import smsinfosolutions.ind.hibl.databinding.AnimalImageItemBinding
@@ -36,14 +38,38 @@ class AnimalImageViewHolder(val binding : AnimalImageItemBinding): RecyclerView.
 
 
     fun bind(animal: AnimalImages, clicklistener: (AnimalImages, String) -> Unit, context:Context) {
-binding.animalPhoto.setImageBitmap(Utils.Base64_to_bitmap(animal.file, context ))
-
+        if(animal.file!=null) {
+            binding.animalPhoto.setImageBitmap(Utils.Base64_to_bitmap(animal.file, context))
+            binding.view.visibility= View.VISIBLE
+        }
+        else{
+            binding.view.visibility=View.GONE
+            if(animal.file_name=="Front")
+            binding.animalPhoto.setImageDrawable(context.resources.getDrawable(R.drawable.front))
+            else if(animal.file_name=="Back")
+            {
+                binding.animalPhoto.setImageDrawable(context.resources.getDrawable(R.drawable.back))
+            }
+            else if(animal.file_name=="Right")
+            {
+                binding.animalPhoto.setImageDrawable(context.resources.getDrawable(R.drawable.right))
+            }
+            else if(animal.file_name=="Left")
+            {
+                binding.animalPhoto.setImageDrawable(context.resources.getDrawable(R.drawable.left))
+            }
+            else if(animal.file_name=="With Owner")
+            {
+                binding.animalPhoto.setImageDrawable(context.resources.getDrawable(R.drawable.withowner))
+            }
+        }
+binding.fname.text=animal.file_name
         binding.root.setOnClickListener{
-            clicklistener(animal,"view")
+            clicklistener(animal,"upload")
 
         }
-        binding.delete.setOnClickListener{
-            clicklistener(animal,"delete")
+       binding.view.setOnClickListener{
+            clicklistener(animal,"view")
 
 
 

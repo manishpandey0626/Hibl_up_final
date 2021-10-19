@@ -9,9 +9,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.zxing.integration.android.IntentIntegrator
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -85,8 +87,8 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
             for (data in animal_list) {
 
                 val cnt = db?.imageCount(data.proposal_no, data.tag_no!!)
-                if (cnt == 0) {
-                    showMsg("Please upload atlest one image for tag no ${data.tag_no}")
+                if (cnt!! < 5) {
+                    showMsg("Please uploads all images for tag no ${data.tag_no}")
                     return@setOnClickListener
                 }
             }
@@ -128,6 +130,17 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
             dialog_binding.animalTypeTxt.setOnItemClickListener { adapterView, view, i, l ->
                 animal_type_code = animal_type_lov[i].id
                 limit=animal_type_lov[i].limit.toDouble()
+            }
+
+            dialog_binding.tagNo.setEndIconOnClickListener {
+
+                IntentIntegrator(this).apply {
+                    setPrompt("Scan Tag No.")
+                    setCameraId(0)
+                    setOrientationLocked(true)
+                    setBeepEnabled(true)
+                    initiateScan()
+                }
             }
             dialog_binding.save.setOnClickListener {
 
@@ -171,11 +184,25 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
                         binding.recyclerView.adapter?.notifyDataSetChanged()
                     }
 
-                    dialog_binding.animalTypeTxt.setText("")
-                    dialog_binding.sumInsured.editText?.setText("")
-                    dialog_binding.tagNo.editText?.setText("")
-                    animal_type_code = ""
-                    // showMsg("success $result")
+                    db?.let{
+                        it.insertAnimalImages(AnimalImages( p_no!!, dialog_binding.tagNo.editText?.text.toString(), "Front",null))
+                        it.insertAnimalImages(AnimalImages( p_no!!, dialog_binding.tagNo.editText?.text.toString(), "Right",null))
+                        it.insertAnimalImages(AnimalImages( p_no!!, dialog_binding.tagNo.editText?.text.toString(), "Left",null))
+                        it.insertAnimalImages(AnimalImages( p_no!!, dialog_binding.tagNo.editText?.text.toString(), "Back",null))
+                        it.insertAnimalImages(AnimalImages( p_no!!, dialog_binding.tagNo.editText?.text.toString(), "With Owner",null))
+                          }
+
+
+
+                        dialog_binding.animalTypeTxt.setText("")
+                        dialog_binding.sumInsured.editText?.setText("")
+                        dialog_binding.tagNo.editText?.setText("")
+                        animal_type_code = ""
+
+
+
+                        // showMsg("success $result")
+
                 } else {
                     // showMsg("failed: $result")
                 }
@@ -238,7 +265,7 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
 
             override fun onFailure(call: Call<AnimalTypeLovList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -263,6 +290,8 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
                     animal_list.addAll(db!!.readAnimalDetail(it))
                     binding.recyclerView.adapter?.notifyDataSetChanged()
                 }
+                db?.deleteAnimalImage(animal.proposal_no,animal.tag_no!!)
+
             }
         }
     }
@@ -299,10 +328,32 @@ class AnimalRegistraionScreen2Activity : AppCompatActivity() {
 
             override fun onFailure(call: Call<PremiumDetail>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        if (intentResult != null) {
+            if (intentResult.contents == null) {
+                Toast.makeText(baseContext, "Cancelled", Toast.LENGTH_SHORT).show()
+            } else {
+                // if the intentResult is not null we'll set
+                // the content and format of scan message
+                //showMsg()
+                dialog_binding.tagNo.editText?.setText(intentResult.contents)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }
 

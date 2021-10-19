@@ -22,21 +22,31 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:src="@drawable/upload"
                 android:visibility="visible"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:id="@+id/animal_photo"
                 android:contentDescription="Movie Image" />
+            <TextView
+                android:id="@+id/fname"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text=""
+                android:layout_below="@id/animal_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/delete"
+                android:id="@+id/view"
                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                app:icon="@drawable/close"
+                app:icon="@drawable/view"
                 app:iconSize="10dp"
                 app:iconGravity="textStart"
                 android:padding="0dp"

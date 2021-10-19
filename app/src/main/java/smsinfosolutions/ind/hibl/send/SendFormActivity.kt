@@ -134,7 +134,7 @@ class SendFormActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

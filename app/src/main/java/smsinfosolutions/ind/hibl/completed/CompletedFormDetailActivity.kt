@@ -28,7 +28,7 @@ class CompletedFormDetailActivity : AppCompatActivity() {
 
 
 
-        val proposal_no = intent.getStringExtra("proposal_no")
+        val proposal_no = intent.getStringExtra("proposal_no").toString()
 
         binding.proposalNo.text=intent.getStringExtra("proposal_no")
         binding.policyNo.text=intent.getStringExtra("policy_no")
@@ -61,7 +61,7 @@ class CompletedFormDetailActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ShowAnimalDetailList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

@@ -101,7 +101,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                // Log.d("tag...", t.message);
+                //
 
             }
         })
@@ -171,7 +171,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                //Log.d("tag...", t.message);
+                //
 
             }
         })

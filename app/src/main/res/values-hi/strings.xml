@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">Hibl HP</string>
+    <string name="app_name">Hibl UP</string>
     <string name="mobile_no">मोबाइल नंबर </string>
     <string name="otp">ओ टी पी </string>
     <string name="login">लॉग इन</string>
     <string name="selectedlanguage">हिंदी</string>
     <string name="language">नमस्ते दुनिया</string>
-    <string name="logo_text">हिमाचल प्रदेश</string>
+    <string name="logo_text">उत्तर प्रदेश</string>
 
 
     <string name="conti">जारि रखे</string>
 
     <string name="greeting">नमस्कार,</string>
-    <string name="setting">सेटिंग</string>
+    <string name="setting">प्रोफाइल</string>
     <string name="logout">लॉग आउट</string>
     <string name="completed_form">पूर्ण प्रस्ताव</string>
     <string name="pending_form">अपूर्ण प्रस्ताव</string>
@@ -101,5 +101,7 @@
     <string name="no_of_animal_insured_small">बीमित पशुओ की संख्या(बड़े)</string>
     <string name="paid_amt">भुगतान राशि</string>
     <string name="paid_dt">पिछली भुगतान तिथि</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="get_otp">Get OTP</string>
 
 </resources>

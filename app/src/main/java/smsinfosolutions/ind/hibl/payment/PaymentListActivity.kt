@@ -81,7 +81,7 @@ class PaymentListActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<PaymentDetailList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

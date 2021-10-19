@@ -31,6 +31,9 @@ class UploadAnimalImageActivity : AppCompatActivity() {
     private  var type: String?=null
     private  var max_limit:Int=4
     private var imageUri: String?=null
+
+    val fileNames:HashMap<String,Int> = hashMapOf("Front" to 1 ,"Right" to 2,"Left" to 3 , "Back" to 4, "With Owner" to 5)//define empty hashmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadAnimalImageBinding.inflate(layoutInflater)
@@ -40,12 +43,13 @@ class UploadAnimalImageActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         db = DatabaseHelper(this)
-        proposal_no = intent.getStringExtra("proposal_no")
-        tag_no = intent.getStringExtra("tag_no")
+        proposal_no = intent.getStringExtra("proposal_no").toString()
+        tag_no = intent.getStringExtra("tag_no").toString()
          max_limit=intent.getIntExtra("max_limit",4)
 
 
         db?.let {
+
             animal_images = it.readAnimalImages(proposal_no, tag_no)
 
         }
@@ -56,16 +60,17 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                 type
             )
         }, this)
-        binding.upload.setOnClickListener {
 
-            if (binding.recyclerView.adapter?.itemCount!! < 4) {
-                val mimetype = arrayOf("image/*")
-                showFileChooser(mimetype, PICK_IMAGE_REQUEST)
-            } else {
-                showMsg("Maximum 4 images allowed!!")
-            }
-        }
 
+//        binding.upload.setOnClickListener {
+//
+//            if (binding.recyclerView.adapter?.itemCount!! < 4) {
+//                val mimetype = arrayOf("image/*")
+//                showFileChooser(mimetype, PICK_IMAGE_REQUEST)
+//            } else {
+//                showMsg("Maximum 4 images allowed!!")
+//            }
+//        }
 
     }
 
@@ -85,14 +90,14 @@ class UploadAnimalImageActivity : AppCompatActivity() {
         }
         imageUri=photoFile?.absolutePath
 
-        startActivityForResult(getPickImageChooserIntent(this, true, photoFile), request)
+        startActivityForResult(getPickImageChooserIntent(this, false, photoFile), request)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
 
-            if (data.getClipData() != null) {
+            /*if (data.getClipData() != null) {
                val exist_cnt= binding.recyclerView.adapter?.itemCount!!
                 val count: Int = data.clipData!!.getItemCount()
                 if(exist_cnt+count<=max_limit) {
@@ -122,7 +127,8 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                     showMsg("Maximum $max_limit images allowed.")
                 }
 
-            } else if (data.data != null) {
+            } else*/
+                if (data.data != null) {
                 val uri = data.data
 
                 val file_name = getFileName(this, uri)
@@ -130,7 +136,8 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                 val bitmap = decodeUri(this, uri)
                 bitmap?.let {
                     val file = Utils.Bitmap_to_base64(bitmap)
-                    val data = AnimalImages(proposal_no, tag_no, file_name, file)
+                    val keys = fileNames.filterValues { it == requestCode }.keys
+                    val data = AnimalImages(proposal_no, tag_no,keys.elementAt(0), file)
 
                     db?.let {
                         it.insertAnimalImages(data)
@@ -140,13 +147,14 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                     }
                 }
             }}
-        else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK)
+        else if ( resultCode == RESULT_OK)
         {
                 val bitmap = imageUri?.let {decodeUri(it) } ?:null
                 //val bitmap = data.extras?.get("data") as Bitmap?
                 bitmap?.let {
                     val file = Utils.Bitmap_to_base64(bitmap)
-                    val data = AnimalImages(proposal_no, tag_no, "cam${animal_images.size}", file)
+                    val keys = fileNames.filterValues { it == requestCode }.keys
+                    val data = AnimalImages(proposal_no, tag_no, keys.elementAt(0), file)
 
                     db?.let {
                         it.insertAnimalImages(data)
@@ -176,10 +184,11 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                 putExtra("file", animal.file)
 
             }
-
             startActivity(intent)
-        } else if (type == "delete") {
-            val result =
+
+
+        } else if (type == "upload") {
+         /*   val result =
                 db?.deleteAnimalImage(animal.proposal_no, animal.tag_no!!, animal.file_name)
             if (result != 0) {
 
@@ -187,7 +196,10 @@ class UploadAnimalImageActivity : AppCompatActivity() {
                 animal_images.addAll(db!!.readAnimalImages(animal.proposal_no, animal.tag_no))
                 binding.recyclerView.adapter?.notifyDataSetChanged()
 
-            }
+            }*/
+
+            val mimetype = arrayOf("image/*")
+            showFileChooser(mimetype,fileNames.get(animal.file_name)!!)
         }
     }
 

@@ -76,7 +76,7 @@ class CompletedFormActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<CompletedFormList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

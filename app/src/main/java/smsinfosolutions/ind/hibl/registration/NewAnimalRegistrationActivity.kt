@@ -392,7 +392,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -416,7 +416,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -440,7 +440,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -467,7 +467,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ProposalNoList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -491,7 +491,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
@@ -515,7 +515,7 @@ class NewAnimalRegistrationActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<LovDataList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })

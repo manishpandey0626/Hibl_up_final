@@ -117,13 +117,35 @@
                android:layout_height="wrap_content"
                android:layout_weight="1"
                android:text="@string/mobile_no"/>
-           <TextView
-               android:id="@+id/mobileno"
+           <LinearLayout
                android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:layout_weight="1"
-               android:text=""
-               android:textColor="@color/secondaryTextColor"/>
+               android:weightSum="1">
+
+
+               <TextView
+                   android:layout_marginRight="8dp"
+                   android:id="@+id/mobileno"
+                   android:layout_weight="1"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:text=""
+                   android:textColor="@color/secondaryTextColor"/>
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/edit_mob"
+                   style="@style/Widget.MaterialComponents.Button.TextButton"
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:insetLeft="0dp"
+                   android:insetTop="0dp"
+                   android:insetRight="0dp"
+                   android:insetBottom="0dp"
+                   app:iconGravity="textStart"
+                   app:iconPadding="0dp"
+                   app:iconTint="@color/primaryColor"
+                   app:icon="@drawable/edit"/>
+           </LinearLayout>
        </LinearLayout>
        <LinearLayout
            android:layout_marginLeft="16dp"
@@ -139,6 +161,11 @@
                android:layout_height="wrap_content"
                android:layout_weight="1"
                android:text="@string/email"/>
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:weightSum="1">
            <TextView
                android:id="@+id/email"
                android:layout_width="0dp"
@@ -146,6 +173,20 @@
                android:layout_weight="1"
                android:text=""
                android:textColor="@color/secondaryTextColor"/>
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/edit_email"
+                   style="@style/Widget.MaterialComponents.Button.TextButton"
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:insetLeft="0dp"
+                   android:insetTop="0dp"
+                   android:insetRight="0dp"
+                   android:insetBottom="0dp"
+                   app:iconGravity="textStart"
+                   app:iconPadding="0dp"
+                   app:iconTint="@color/primaryColor"
+                   app:icon="@drawable/edit"/>
+           </LinearLayout>
        </LinearLayout>
        <LinearLayout
            android:layout_marginLeft="16dp"

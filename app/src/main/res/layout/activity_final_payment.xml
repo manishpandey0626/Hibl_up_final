@@ -131,7 +131,23 @@
                 android:src="@drawable/upload"
                 android:tooltipText="Upload Image" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check"/>
 
+    <TextView
+        android:textColor="@color/red"
+        android:id="@+id/terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="10"
+        android:text="" />
+</LinearLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -147,13 +163,15 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
     >
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:padding="16dp"
-        android:text="@string/confirm_payment" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+
+            android:padding="16dp"
+            android:text="@string/confirm_payment" />
     </LinearLayout>
 
 </RelativeLayout>

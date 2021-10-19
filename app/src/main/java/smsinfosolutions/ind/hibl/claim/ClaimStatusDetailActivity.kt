@@ -27,7 +27,7 @@ class ClaimStatusDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
-             val tag_no=   intent.getStringExtra("tag_no")
+             val tag_no=   intent.getStringExtra("tag_no").toString()
         getClaimStatus(tag_no)
     }
 
@@ -50,7 +50,7 @@ class ClaimStatusDetailActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ClaimDetailList>, t: Throwable) {
                 showMsg("on FAilure ${t.message}")
-                Log.d("tag...", t.message);
+
 
             }
         })
